@@ -1,7 +1,7 @@
 require 'robot'
 
 describe Robot do
-  let(:mars){ double('planet')}
+  let(:mars){ double('planet', has_scent?: false, off?: false, leave_scent: true)}
   let(:start_coordinate){'1 1 E'}
   subject(:robot){described_class.new(mars, start_coordinate)}
 
@@ -28,16 +28,25 @@ describe Robot do
         robot.move('L')
         expect(robot.report_status).to eq([1, 1,'N'])
       end
-
     end
 
-    context 'Moving along the edge of planet' do
-      xit 'does not move forward if there is a scent' do
+    context 'Moving across the edge of planet' do
 
+      it 'checks if there is a scent' do
+        expect(mars).to receive(:has_scent?)
+        robot.move('F')
       end
 
-      xit 'reports back lost at is previous location if goes off the planet' do
+      it 'does not move forward if there is a scent' do
+        allow(mars).to receive(:has_scent?){true}
+        robot.move('F')
+        expect(robot.report_status).to eq([1, 1,'E'])
+      end
 
+      it 'reports back lost at is previous location if goes off the planet' do
+        allow(mars).to receive(:off?){true}
+        robot.move('F')
+        expect(robot.report_status).to eq([1, 1,'E LOST'])
       end
     end
 

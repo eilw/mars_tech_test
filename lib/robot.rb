@@ -12,40 +12,48 @@ class Robot
   end
 
   def move(command)
-    send(command.downcase.to_sym)
+    send((command+'_instruction').downcase.to_sym) unless lost?
   end
 
   def report_status
-    get_position.dup << get_direction
+    @position.dup << @direction
   end
 
   private
 
-  def f
-    #check if grid has scent in that direction
-    move_forward(POSITION_CHANGE[get_direction.to_sym])
+  attr_reader :planet
+
+  def lost?
+    @lost
   end
 
-  def r
+  def set_as_lost
+    @lost = true
+  end
+
+  def f_instruction
+    move_forward(POSITION_CHANGE[@direction.to_sym]) unless planet.has_scent?(@position, @direction)
+  end
+
+  def r_instruction
     @direction = CLOCKWISE[@direction.to_sym]
   end
 
-  def l
+  def l_instruction
     @direction = COUNTER_CLOCKWISE[@direction.to_sym]
   end
 
-  def move_forward(change)
-    @position = get_position.map.with_index{ |pos,i| pos + change[i] }
+  def move_forward(step)
+    old_position = @position.dup
+    @position = @position.map.with_index{ |pos,i| pos + step[i] }
+    report_lost(old_position) if planet.off?(@position)
   end
 
-  def get_position
-    @position
+  def report_lost(old_position)
+    @position = old_position
+    planet.leave_scent(@position, @direction)
+    @direction += " LOST"
+    set_as_lost
   end
-
-  def get_direction
-    @direction
-  end
-
-
 
 end

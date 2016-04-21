@@ -9,7 +9,7 @@ describe 'feature tests' do
   let(:mars){Planet.new("5 3", Grid)}
   let(:mission_control){MissionControl.new(mars, Robot)}
 
-  describe 'sample input' do
+  context 'normal operation' do
 
     it 'Mission 1: the robot goes in a circle' do
       robot = mission_control.launch_robot(mars,'1 1 E')
@@ -17,10 +17,17 @@ describe 'feature tests' do
       expect(STDOUT).to receive(:puts).with('1 1 E')
       mission_control.request_status(robot)
     end
+  end
+
+  context 'with edge cases' do
+    let(:robot){mission_control.launch_robot(mars,'3 2 N')}
+
+    before do
+      robot
+      mission_control.send('FRRFLLFFRRFLL')
+    end
 
     it 'Mission 2: the robot reports that it is lost' do
-      robot = mission_control.launch_robot(mars,'3 2 N')
-      mission_control.send('FRRFLLFFRRFLL')
       expect(STDOUT).to receive(:puts).with("3 3 N LOST")
       mission_control.request_status(robot)
     end

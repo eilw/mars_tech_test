@@ -1,35 +1,40 @@
 class Planet
-  attr_reader :territory
+
   def initialize(coordinates, grid_klass)
-    @territory = create_planet(coordinates,grid_klass)
+    @territory = lay_out_grid(coordinates,grid_klass)
   end
 
-  def has_scent?(x_y_direction)
-    grid = select_grid(x_y_direction)
-    grid.has_scent?('N')
+  def has_scent?(coordinates, direction)
+    grid = select_grid(coordinates)
+    grid.has_scent?(direction)
   end
 
-  def select_grid(x_y_direction)
-    x = x_y_direction[0]-1
-    y = x_y_direction[1]-1
-    territory[x][y]
+  def select_grid(coordinates)
+    x = coordinates[0]
+    y = coordinates[1]
+    @territory[x][y]
+  end
+
+  def get_territory
+    @territory.dup
+  end
+
+  def off?(coordinates)
+    !select_grid(coordinates)
+  end
+
+  def leave_scent(coordinates, direction)
+    grid = select_grid(coordinates)
+    grid.leave_scent(direction)
   end
 
   private
 
-  def create_planet(coordinates,grid_klass)
-    grid = []
-    x_coordinate = coordinates.split(' ').shift().to_i
-    y_coordinate = coordinates.split(' ').pop().to_i
-    x_coordinate.times do |x|
-      y_grid = []
-      y_coordinate.times do |y|
-        y_grid << grid_klass.new()
-      end
-      grid << y_grid
+  def lay_out_grid(coordinates,grid_klass)
+    x_value = coordinates.split(' ').shift().to_i
+    y_value = coordinates.split(' ').pop().to_i
+    grid = (0..x_value).map do |x|
+      (0..y_value).map{|y| grid_klass.new()}
     end
-    grid
   end
-
-
 end

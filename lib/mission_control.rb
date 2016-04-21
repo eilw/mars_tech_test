@@ -5,8 +5,8 @@ class MissionControl
     @robot_klass = robot_klass
   end
 
-  def launch_robot(planet, start_coordinate)
-    @robot = @robot_klass.new(planet, start_coordinate)
+  def launch_robot(planet, start_coordinates)
+    @robot = @robot_klass.new(planet, start_coordinates)
   end
 
   def send(instructions)
