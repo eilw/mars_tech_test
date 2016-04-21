@@ -33,8 +33,7 @@ class Planet
   def lay_out_grid(coordinates,grid_klass)
     x_value = coordinates.split(' ').shift().to_i
     y_value = coordinates.split(' ').pop().to_i
-    grid = (0..x_value).map do |x|
-      (0..y_value).map{|y| grid_klass.new()}
-    end
+    (0..x_value).map{(0..y_value)
+      .map{grid_klass.new()}}
   end
 end
