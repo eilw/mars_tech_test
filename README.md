@@ -3,19 +3,22 @@
 A tech test to model the controlling of a robot on Mars, in Ruby.
 
 ### Approach
-To get a sense of the solution space, I started by sketching out the various components that were mentioned in the brief: a planet that had a grid, a robot and a control system. Based on that I designed a solution based on four classes: Planet, Grid, Robot and Mission Control.
+To get a sense of the solution space, I started by sketching out the various components that were mentioned in the brief: a planet that had a grid, a robot and a control system. Based on that I designed a solution based on four classes: Planet, Grid, Robot and MissionControl.
 
 I used the examples provided in the brief to structure my feature test - where each test was based on one 'mission'. With the feature test set up, it was simply a matter of following a TDD approach with unit tests to flesh out the remaining functionality.
 
-The main challenge was figuring out how and which object was responsible for capturing the trace of the robot.
+In order to remain open for additional instructions to the robot, I cho0se to use the ```send``` method, to initate related methods for each of the types of instructions. 
+
+The main challenge was figuring out how and which object was responsible for capturing the 'robot-trace'.
 
 ### Testing
-clone this repo
-go into the root of the folder
-run ```rspec```
+RSpec is the testing framework.
+- clone this repo
+- go into the root of the folder
+- run ```rspec```
 
 
-### Example of functionality
+### Code example
 ```
 mars = Planet.new("5 3", Grid)
 mission_control = MissionControl.new(mars, Robot)
