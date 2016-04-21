@@ -2,7 +2,7 @@ require 'mission_control'
 
 describe MissionControl do
   let(:mars){ double('mars') }
-  let(:robot){ double('robot', move: true, report_status:'OK')}
+  let(:robot){ double('robot', move: true, report_status:[1,1,'E'])}
   let(:robot_klass){ double('robot_klass', new: robot) }
   subject(:mission_control){described_class.new(mars, robot_klass)}
 
@@ -29,7 +29,7 @@ describe MissionControl do
     end
 
     it 'prints out the status of the robot' do
-      expect(STDOUT).to receive(:puts).with('OK')
+      expect(STDOUT).to receive(:puts).with("1 1 E")
       mission_control.request_status(robot)
     end
   end

@@ -21,6 +21,6 @@ class MissionControl
   private
 
   def print_status(output)
-    puts output
+    puts output.join(' ')
   end
 end
