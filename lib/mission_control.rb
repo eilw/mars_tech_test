@@ -1,12 +1,12 @@
 class MissionControl
 
-  def initialize(mars, robot_klass)
-    @mars = mars
+  def initialize(planet, robot_klass)
+    @planet = planet
     @robot_klass = robot_klass
   end
 
-  def launch_robot(start_coordinate)
-    @robot = @robot_klass.new(start_coordinate)
+  def launch_robot(planet, start_coordinate)
+    @robot = @robot_klass.new(planet, start_coordinate)
   end
 
   def send(instructions)

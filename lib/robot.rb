@@ -5,9 +5,10 @@ class Robot
   COUNTER_CLOCKWISE = {S: 'E', E:'N', N:'W', W: 'S'}
 
 
-  def initialize(start_coordinate)
+  def initialize(planet, start_coordinate)
     @position = start_coordinate.split(' ')[0..1].map{|x| x.to_i}
     @direction = start_coordinate.split(' ')[2]
+    @planet = planet
   end
 
   def move(command)
@@ -21,6 +22,7 @@ class Robot
   private
 
   def f
+    #check if grid has scent in that direction
     move_forward(POSITION_CHANGE[get_direction.to_sym])
   end
 

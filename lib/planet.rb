@@ -1,8 +1,21 @@
-class Mars
-  attr_reader :planet
+class Planet
+  attr_reader :territory
   def initialize(coordinates, grid_klass)
-    @planet = create_planet(coordinates,grid_klass)
+    @territory = create_planet(coordinates,grid_klass)
   end
+
+  def has_scent?(x_y_direction)
+    grid = select_grid(x_y_direction)
+    grid.has_scent?('N')
+  end
+
+  def select_grid(x_y_direction)
+    x = x_y_direction[0]-1
+    y = x_y_direction[1]-1
+    territory[x][y]
+  end
+
+  private
 
   def create_planet(coordinates,grid_klass)
     grid = []
@@ -16,17 +29,6 @@ class Mars
       grid << y_grid
     end
     grid
-  end
-
-  def has_scent?(x_y_direction)
-    grid = select_grid(x_y_direction)
-    grid.has_scent?('N')
-  end
-
-  def select_grid(x_y_direction)
-    x = x_y_direction[0]-1
-    y = x_y_direction[1]-1
-    planet[x][y]
   end
 
 

@@ -8,15 +8,15 @@ describe MissionControl do
 
   describe '#launch_robot' do
     it 'a new robot is created and initalised with a coordinate' do
-      expect(robot_klass).to receive(:new).with(instance_of(String))
-      mission_control.launch_robot('1 1 E')
+      expect(robot_klass).to receive(:new)
+      mission_control.launch_robot(mars, '1 1 E')
     end
   end
 
   describe '#send' do
     it 'robot receives instructions' do
       instructions = 'RR'
-      mission_control.launch_robot('1 1 E')
+      mission_control.launch_robot(mars, '1 1 E')
       expect(robot).to receive(:move).exactly(instructions.length)
       mission_control.send(instructions)
     end
