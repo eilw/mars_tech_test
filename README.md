@@ -7,9 +7,9 @@ To get a sense of the solution space, I started by sketching out the various com
 
 I used the examples provided in the brief to structure my feature test - where each test was based on one 'mission'. With the feature test set up, it was simply a matter of following a TDD approach with unit tests to flesh out the remaining functionality.
 
-In order to remain open for additional instructions to the robot, I cho0se to use the ```send``` method, to initate related methods for each of the types of instructions. 
+In order to remain open for additional instructions to the robot, I choose to use the ```send``` method, as a way to act on the various types of instructions the robot would receive. 
 
-The main challenge was figuring out how and which object was responsible for capturing the 'robot-trace'.
+The main challenge was figuring out how and which object was responsible for leaving and capturing the 'robot-trace'.
 
 ### Testing
 RSpec is the testing framework.
