@@ -2,8 +2,6 @@ class Robot
 
   POSITION_CHANGE = {E: [1,0], W: [-1,0], N:[0,1], S:[0,-1]}
   CLOCKWISE = {E: 'S', S:'W', W:'N', N: 'E'}
-  COUNTER_CLOCKWISE = {S: 'E', E:'N', N:'W', W: 'S'}
-
 
   def initialize(planet, start_coordinate)
     @position = start_coordinate.split(' ')[0..1].map{|x| x.to_i}
@@ -28,6 +26,7 @@ class Robot
   end
 
   def set_as_lost
+    @direction += " LOST"
     @lost = true
   end
 
@@ -40,7 +39,7 @@ class Robot
   end
 
   def l_instruction
-    @direction = COUNTER_CLOCKWISE[@direction.to_sym]
+    @direction = CLOCKWISE.invert[@direction].to_s
   end
 
   def move_forward(step)
@@ -52,7 +51,6 @@ class Robot
   def report_lost(old_position)
     @position = old_position
     planet.leave_scent(@position, @direction)
-    @direction += " LOST"
     set_as_lost
   end
 

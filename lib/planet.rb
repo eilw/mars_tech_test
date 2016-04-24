@@ -5,8 +5,7 @@ class Planet
   end
 
   def has_scent?(coordinates, direction)
-    grid = select_grid(coordinates)
-    grid.has_scent?(direction)
+    select_grid(coordinates).has_scent?(direction)
   end
 
   def select_grid(coordinates)
@@ -24,8 +23,7 @@ class Planet
   end
 
   def leave_scent(coordinates, direction)
-    grid = select_grid(coordinates)
-    grid.leave_scent(direction)
+    select_grid(coordinates).leave_scent(direction)
   end
 
   private
@@ -34,6 +32,6 @@ class Planet
     x_value = coordinates.split(' ').shift().to_i
     y_value = coordinates.split(' ').pop().to_i
     (0..x_value).map{(0..y_value)
-      .map{grid_klass.new()}}
+                .map{grid_klass.new()}}
   end
 end
