@@ -1,3 +1,4 @@
+[![Code Climate](https://codeclimate.com/github/eilw/mars_tech_test/badges/gpa.svg)](https://codeclimate.com/github/eilw/mars_tech_test)
 # Mars tech test
 
 A tech test to model the controlling of a robot on Mars, in Ruby.
